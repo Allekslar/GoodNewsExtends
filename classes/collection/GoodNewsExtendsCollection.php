@@ -14,7 +14,6 @@ use Response;
  */
 class GoodNewsExtendsCollection extends ElementCollection
 {
-    // const ITEM_CLASS = CardItem::class;
 
     /**
      * Sort list
@@ -24,7 +23,6 @@ class GoodNewsExtendsCollection extends ElementCollection
     {
 
         $arResultIDList = CategoryListStore::instance()->type->get();
-        // trace_log([self::class => $arResultIDList]);
         return $this->applySorting($arResultIDList);
     }
 
