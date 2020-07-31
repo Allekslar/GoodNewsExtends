@@ -1,4 +1,6 @@
-<?php namespace Allekslar\GoodNewsExtends\Classes\Event\Category;
+<?php
+
+namespace Allekslar\GoodNewsExtends\Classes\Event\Category;
 
 
 use Lovata\GoodNews\Classes\Item\CategoryItem;
@@ -24,15 +26,21 @@ class ExtendCategoryItem
      */
     protected function addCustomMethod($obCategoryItem)
     {
-        $obCategoryItem->addDynamicMethod('getBreadcrumbs', function ($sFragment) use ($obCategoryItem) {
+        $obCategoryItem->addDynamicMethod('getBreadcrumbs', function ($sFragment = '') use ($obCategoryItem) {
 
             $arResultList = $this->getBreadcrumbs($obCategoryItem, $sFragment);
 
             return $arResultList;
         });
-        $obCategoryItem->addDynamicMethod('getUrlPage', function ($sFragment) use ($obCategoryItem) {
+        $obCategoryItem->addDynamicMethod('getUrlPage', function ($sSlug = '') use ($obCategoryItem) {
 
-            $sUrl = $this->getUrlPage($obCategoryItem, $sFragment);
+            $sUrl = $this->getUrlPage($obCategoryItem, $sSlug);
+
+            return $sUrl;
+        });
+        $obCategoryItem->addDynamicMethod('getUrlArticle', function ($sSlug) use ($obCategoryItem) {
+
+            $sUrl = $this->getUrlArticle($obCategoryItem, $sSlug);
 
             return $sUrl;
         });
@@ -62,7 +70,7 @@ class ExtendCategoryItem
      *
      * @return string
      */
-    public function getUrlPage($obCategoryItem, $sFragment = '')
+    public function getUrlPage($obCategoryItem, $sSlug)
     {
 
         //Get slug list
@@ -73,8 +81,11 @@ class ExtendCategoryItem
 
         $sBaseUrl = Cms::url();
         $sPathUrl = Helper::rebuildUrl($arSlugList);
-        $sUrl =  $sBaseUrl . $sFragment . $sPathUrl;
 
+        $sUrl =  $sBaseUrl . $sPathUrl;
+        if ($sSlug!=''){
+        $sUrl =  $sBaseUrl . $sPathUrl ."/". $sSlug;
+        }
         return  $sUrl;
     }
 
@@ -86,7 +97,7 @@ class ExtendCategoryItem
      * @param string $sFragment
      * @return array
      */
-    public function buildUrl($obCategoryItem, $sFragment = '/category')
+    public function buildUrl($obCategoryItem)
     {
 
         $arResultUrl[] = $obCategoryItem->slug;
@@ -105,7 +116,7 @@ class ExtendCategoryItem
             }
 
             $sPathUrl = Helper::rebuildUrl(array_reverse($arResultSlug));
-            $url =  $sBaseUrl . $sFragment . $sPathUrl;
+            $url =  $sBaseUrl . $sPathUrl;
 
             $arResultUrl[] = $url;
             $arResultName[] = $obParentCategory->name;
@@ -125,16 +136,15 @@ class ExtendCategoryItem
      * @param string $sFragment
      * @return array
      */
-    public function getBreadcrumbs($obCategoryItem, $sFragment)
+    public function getBreadcrumbs($obCategoryItem, $sFragment = '')
     {
-        $arResultUrl = $this->buildUrl($obCategoryItem, $sFragment);
+        $arResultUrl = $this->buildUrl($obCategoryItem);
         $arResult = [];
 
         foreach ($arResultUrl as $key => $value) {
             $arResult[]   =  array('name' => $value, 'url' =>  $key);
         }
         $arResult[]   =  array('name' => 'Home', 'url' => Cms::url() . $sFragment);
-
         return array_reverse($arResult);
     }
 }

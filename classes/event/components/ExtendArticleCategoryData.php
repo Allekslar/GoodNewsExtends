@@ -30,7 +30,6 @@ class ExtendArticleCategoryData
 
             return $arResultList;
         });
-
     }
 
     /**
@@ -45,7 +44,6 @@ class ExtendArticleCategoryData
         }
 
         $obElement = Category::active()->getBySlug($sElementSlug)->first();
-
         return $obArticleCategoryData->get($obElement->id);
     }
 }

@@ -1,10 +1,18 @@
-<?php namespace Allekslar\GoodNewsExtends;
+<?php
+
+namespace Allekslar\GoodNewsExtends;
 
 use Event;
 use Backend;
 use System\Classes\PluginBase;
 use Allekslar\GoodNewsExtends\Classes\Event\Category\ExtendCategoryItem;
+use Allekslar\GoodNewsExtends\Classes\Event\Category\ExtendCategoryModel;
+use Allekslar\GoodNewsExtends\Classes\Event\Category\ExtendCategoryFieldsHandler;
+use Allekslar\GoodNewsExtends\Classes\Event\Category\ExtendCategoryColumnsHandler;
 use Allekslar\GoodNewsExtends\Classes\Event\Components\ExtendArticleCategoryData;
+use Allekslar\GoodNewsExtends\Classes\Event\Components\ExtendCategoryPage;
+use Allekslar\GoodNewsExtends\Classes\Event\Category\ExtendCategoryCollection;
+
 
 /**
  * GoodNewsExtends Plugin Information File
@@ -12,8 +20,8 @@ use Allekslar\GoodNewsExtends\Classes\Event\Components\ExtendArticleCategoryData
 class Plugin extends PluginBase
 {
 
-        /** @var array Plugin dependencies */
-        public $require = ['Lovata.GoodNews'];
+    /** @var array Plugin dependencies */
+    public $require = ['Lovata.GoodNews'];
     /**
      * Returns information about this plugin.
      *
@@ -36,7 +44,6 @@ class Plugin extends PluginBase
      */
     public function register()
     {
-
     }
 
     /**
@@ -46,9 +53,14 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        
+
         Event::subscribe(ExtendArticleCategoryData::class);
+        Event::subscribe(ExtendCategoryPage::class);
         Event::subscribe(ExtendCategoryItem::class);
+        Event::subscribe(ExtendCategoryFieldsHandler::class);
+        Event::subscribe(ExtendCategoryModel::class);
+        Event::subscribe(ExtendCategoryCollection::class);
+        Event::subscribe(ExtendCategoryColumnsHandler::class);
     }
 
     /**
@@ -64,8 +76,4 @@ class Plugin extends PluginBase
             'Allekslar\GoodNewsExtends\Components\MyComponent' => 'myComponent',
         ];
     }
-
-
-
-
 }

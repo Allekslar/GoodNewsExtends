@@ -1,1 +1,4 @@
 1.0.1: First version of GoodNewsExtends
+1.0.2: 
+    - Update Table GoodNewsCategories add column "type"
+    - update_table_good_news_categories.php
