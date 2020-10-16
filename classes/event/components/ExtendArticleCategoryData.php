@@ -39,11 +39,20 @@ class ExtendArticleCategoryData
      */
     public function getBySlug($obArticleCategoryData, $sElementSlug)
     {
+ 
         if (empty($sElementSlug)) {
             return null;
         }
+        $arElementSlug = explode("/",$sElementSlug);
+        $sElementSlug = end($arElementSlug);
 
-        $obElement = Category::active()->getBySlug($sElementSlug)->first();
-        return $obArticleCategoryData->get($obElement->id);
+        if (Category::active()->getBySlug($sElementSlug)->first()) {
+            $obElement = Category::active()->getBySlug($sElementSlug)->firstOrFail();
+            return $obArticleCategoryData->get($obElement->id);
+        }else if (count($arElementSlug)>1) {
+            $sElementSlug = prev($arElementSlug);
+            $obElement = Category::active()->getBySlug($sElementSlug)->firstOrFail();
+            return $obArticleCategoryData->get($obElement->id);
+        }
     }
 }
