@@ -38,12 +38,12 @@ class ExtendCategoryItem
 
             return $sUrl;
         });
-        $obCategoryItem->addDynamicMethod('getUrlArticle', function ($sSlug) use ($obCategoryItem) {
+        // $obCategoryItem->addDynamicMethod('getUrlArticle', function ($sSlug) use ($obCategoryItem) {
 
-            $sUrl = $this->getUrlArticle($obCategoryItem, $sSlug);
+        //     $sUrl = $this->getUrlArticle($obCategoryItem, $sSlug);
 
-            return $sUrl;
-        });
+        //     return $sUrl;
+        // });
     }
 
     /**
