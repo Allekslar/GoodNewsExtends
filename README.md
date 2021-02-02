@@ -1,7 +1,10 @@
 # GoodNewsExtends
 
+Clone repo 
 
-
+```shell 
+   git clone https://github.com/Allekslar/GoodNewsExtends.git plugins/allekslar/goodnewsextends
+```
 ## Overview
 
 plugin for October CMS extend GoodNews plugins:

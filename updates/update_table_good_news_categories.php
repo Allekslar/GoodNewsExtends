@@ -17,7 +17,7 @@ class UpdateTableGoodNewsCategories extends Migration
      */
     public function up()
     {
-        if (Schema::hasTable('lovata_good_news_categories')) {
+        if (Schema::hasTable('lovata_good_news_categories') && !Schema::hasColumn('lovata_good_news_categories', 'type')) {
 
             Schema::table('lovata_good_news_categories', function (Blueprint $table) {
                 $table->string('type')->nullable();
@@ -31,7 +31,7 @@ class UpdateTableGoodNewsCategories extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable('lovata_good_news_categories')) {
+        if (Schema::hasTable('lovata_good_news_categories') && Schema::hasColumn('lovata_good_news_categories', 'type')) {
             Schema::table('lovata_good_news_categories', function (Blueprint $table) {
                 $table->dropIndex('type');
                 $table->dropColumn('type');
